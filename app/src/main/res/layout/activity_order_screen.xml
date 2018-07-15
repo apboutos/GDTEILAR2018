@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".order.OrderScreen">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="286dp">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/orderFirstNameBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="First Name"
+                            android:inputType="textPersonName"
+                            android:text="Apostolis"
+                            app:layout_constraintEnd_toStartOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/orderMiddleNameBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Middle Name"
+                            android:inputType="textPersonName"
+                            android:text="John"
+                            app:layout_constraintEnd_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/orderLastNameBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Last Name"
+                            android:inputType="textPersonName"
+                            android:text="Boutos"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <EditText
+                            android:id="@+id/orderAddressBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Address"
+                            android:inputType="textPostalAddress"
+                            android:text="Makrychori"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/orderFirstNameBox" />
+
+                        <EditText
+                            android:id="@+id/orderPostalBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Postal Code"
+                            android:inputType="number"
+                            android:text="40006"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="parent" />
+
+                        <EditText
+                            android:id="@+id/orderCreditCardNumberBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Credit Card"
+                            android:inputType="number"
+                            android:text="400 568 656 589"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.035"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/orderAddressBox" />
+
+                        <EditText
+                            android:id="@+id/orderCreditExpirationBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Expiration Date"
+                            android:inputType="date"
+                            android:text="12/19"
+                            app:layout_constraintEnd_toStartOf="@+id/orderCVSBox"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/orderCreditCardNumberBox" />
+
+                        <EditText
+                            android:id="@+id/orderCVSBox"
+                            style="@style/entryBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="CVS"
+                            android:inputType="number"
+                            android:text="500"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent" />
+                    </LinearLayout>
+                </ScrollView>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="177dp"
+                android:minHeight="25dp"
+                android:minWidth="25dp"
+                android:visibility="visible"
+                tools:layout_editor_absoluteY="567dp">
+
+                <ListView
+                    android:id="@+id/orderItemList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="99dp">
+
+                <TextView
+                    android:id="@+id/orderTotalPriceLabelBox"
+                    style="@style/entryBox"
+                    android:layout_width="141dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Total Price"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/orderTotalPriceBox"
+                    style="@style/entryBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="456.23"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.153"
+                    app:layout_constraintStart_toEndOf="@+id/orderTotalPriceLabelBox"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/orderCompleteButton"
+                    style="@style/entryButton"
+                    android:layout_width="141dp"
+                    android:layout_height="51dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="64dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="64dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Complete Order"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/orderCancelButton"
+                    app:layout_constraintHorizontal_bias="0.242"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/orderTotalPriceLabelBox"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <Button
+                    android:id="@+id/orderCancelButton"
+                    style="@style/entryButton"
+                    android:layout_width="82dp"
+                    android:layout_height="51dp"
+                    android:layout_marginEnd="56dp"
+                    android:layout_marginRight="56dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Cancel"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/orderTotalPriceBox"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Grinia</string>
+
+
+    <string name="intro_welcome_message">Έκθεση γεωργικών προιόντων Γεώργιος Ντούφας.</string>
+    <string name="intro_login_button">ΕΙΣΟΔΟΣ</string>
+    <string name="intro_register_button">ΕΓΓΡΑΦΗ</string>
+    <string name="intro_guest_button">ΕΠΙΣΚΕΨΗ</string>
+    <string name="intro_image_description">Δυστυχισμένη Φάτσα</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">E-mail</string>
+
+
+    <string name="login_error_empty_fields">Συμπληρώστε όλα τα πεδία.</string>
+    <string name="login_error_no_internet_connection">Δεν υπάρχει διαθέσιμο δίκτυο.</string>
+    <string name="login_error_server_unreachable">Ο διακομιστής δεν απαντά.</string>
+    <string name="login_error_wrong_credentials">Λάθος στοιχεία εισόδου.</string>
+    <string name="login_error_unexplained">"Κάτι πήγε στραβά."</string>
+    <string name="login_forgot_credentials">Ξεχασα τους κωδικους μου.</string>
+
+
+    <string name="register_error_password_missmatch">Τα δύο password δεν ταιριάζουν.</string>
+    <string name="register_error_email_taken">Το e-mail που εισάγατε υπάρχει ήδη.</string>
+    <string name="register_error_username_taken">Το username που εισάγατε υπάρχει ήδη.</string>
+    <string name="register_error_invalid_email">Μη αποδεκτή διεύθυνση e-mail.</string>
+    <string name="register_error_invalid_password">Το password πρέπει να είναι τουλάχιστο 8 χαρακτήρες και να περιέχει αριθμούς και γράμματα.</string>
+    <string name="register_complete_message">Η εγγραφή σας ολοκηρώθηκε με επιτυχία.</string>
+
+
+    <string name="retrieve_button">ΑΝΑΚΤΗΣΗ</string>
+    <string name="retrieve_instructions">Εισάγετε το e-mail του λογαριασμού για να σας αποσταλούν οι κωδικοί εισόδου.</string>
+    <string name="retrieve_instructions_result">Οι κωδικοί εισόδου έχουν αποσταλεί στο e-mail σας.</string>
+    <string name="retrieve_instructions_result_error">Το e-mail που εισάγατε δεν αντιστοιχεί σε κάποιο λογαριασμό.</string>
+    <string name="title_activity_cart_screen">CartScreen</string>
+
+    <string name="scan_barcode_error">Το προιόν που σκανάρατε δεν βρέθηκε.</string>
+
+    <string name="login_URL">http://snippy.flnet.org/barcode/public/login</string>
+    <string name="register_URL">http://snippy.flnet.org/barcode/public/register</string>
+    <string name="scan_URL">http://snippy.flnet.org/barcode/public/scan</string>
+    <string name="order_URL">http://snippy.flnet.org/barcode/public/order</string>
+</resources>

@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- The button in the entry menus -->
+    <style name="entryButton">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">@color/button_text</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- Information boxes in the entry menus -->
+    <style name="entryBox">
+        <item name="android:textColor">@color/login_letters</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColorHint">@color/login_indications</item>
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
