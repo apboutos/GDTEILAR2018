@@ -17,6 +17,7 @@ import com.exophrenik.grinia.cart.CartScreen;
 import com.exophrenik.grinia.login.LoginScreen;
 import com.exophrenik.grinia.product.ProductScreen;
 import com.exophrenik.grinia.profile.ProfileScreen;
+import com.exophrenik.grinia.server.ServerSimulationService;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -34,7 +35,7 @@ public class ScanScreen extends AppCompatActivity {
     private ScanResponseReceiver receiver;
     private String barcodeResult;
     private ProgressBar connectionSpinner;
-
+    private boolean onlineMode;
 
 
     public class ScanResponseReceiver extends BroadcastReceiver {
@@ -76,6 +77,7 @@ public class ScanScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_screen);
 
+        onlineMode = savedInstanceState.getBoolean("onlineMode");
         integrator = new IntentIntegrator(this);
         scanButton = (Button) findViewById(R.id.scanButton);
         cartButton = (Button) findViewById(R.id.cartButton);
@@ -144,8 +146,15 @@ public class ScanScreen extends AppCompatActivity {
     }
 
     private void startTheScanIntentService(){
-        Intent startScanIntentService = new Intent(ScanScreen.this, ScanIntentService.class);
+        Intent startScanIntentService;
+        if (onlineMode == true){
+            startScanIntentService = new Intent(ScanScreen.this, ScanIntentService.class);
+        }
+        else{
+            startScanIntentService = new Intent(ScanScreen.this, ServerSimulationService.class);
+        }
         startScanIntentService.putExtra("submittedBarcode",barcodeResult);
+        startScanIntentService.putExtra("action","scan");
         startService(startScanIntentService);
 
     }

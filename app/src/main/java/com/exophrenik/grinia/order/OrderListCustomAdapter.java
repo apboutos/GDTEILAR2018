@@ -1,6 +1,7 @@
 package com.exophrenik.grinia.order;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,12 @@ public class OrderListCustomAdapter extends ArrayAdapter<CartItem> {
     private Context context;
 
     public OrderListCustomAdapter(ArrayList<CartItem> cartList, Context context){
-        super(context, R.layout.order_cart_list_item);
+        super(context, R.layout.order_cart_list_item,cartList);
         this.cartList = cartList;
         this.context = context;
+        for (CartItem item : cartList){
+            Log.d("RED",item.getName());
+        }
     }
 
 
@@ -32,7 +36,6 @@ public class OrderListCustomAdapter extends ArrayAdapter<CartItem> {
         View cartItemView = convertView;
         if (cartItemView == null){
             cartItemView = LayoutInflater.from(context).inflate(R.layout.order_cart_list_item,parent,false);
-
         }
 
         CartItem currentItem = getItem(position);

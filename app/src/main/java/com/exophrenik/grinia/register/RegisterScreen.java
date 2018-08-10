@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.login.LoginScreen;
+import com.exophrenik.grinia.server.ServerSimulationService;
 import com.exophrenik.grinia.utilities.Network;
 
 
@@ -29,6 +30,7 @@ public class RegisterScreen extends AppCompatActivity {
     private EditText emailBox;
     private TextView errorMessageBox;
     private ProgressBar connectionSpinner;
+    private Boolean onlineMode;
 
     private RegisterResponseReceiver responseReceiver;
     private IntentFilter filter;
@@ -57,6 +59,7 @@ public class RegisterScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
+        onlineMode = savedInstanceState.getBoolean("onlineMode");
 
         registerButton    = (Button)      findViewById(R.id.register_button);
         usernameBox       = (EditText)    findViewById(R.id.register_username);
@@ -186,11 +189,19 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     private void startRegisterIntentService(){
-        Intent registerIntent = new Intent(RegisterScreen.this, RegisterIntentService.class);
+
+        Intent registerIntent;
+        if (onlineMode == true){
+            registerIntent = new Intent(RegisterScreen.this, RegisterIntentService.class);
+        }
+        else {
+            registerIntent = new Intent(RegisterScreen.this, ServerSimulationService.class);
+        }
         registerIntent.setAction(Intent.ACTION_SEND);
         registerIntent.putExtra("username", usernameBox.getText().toString());
         registerIntent.putExtra("password", passwordBox.getText().toString());
         registerIntent.putExtra("email", emailBox.getText().toString());
+        registerIntent.putExtra("action","register");
         startService(registerIntent);
     }
 

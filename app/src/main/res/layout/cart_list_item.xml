@@ -21,14 +21,14 @@
             android:text="Patates"
             android:textSize="24sp" />
 
-        <TextView
+        <EditText
             android:id="@+id/itemQuantityView"
-            style="@style/entryBox"
             android:layout_width="91dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
             android:inputType="number"
+            android:textColor="@color/button_background"
             android:text="1"
             android:textSize="24sp" />
 

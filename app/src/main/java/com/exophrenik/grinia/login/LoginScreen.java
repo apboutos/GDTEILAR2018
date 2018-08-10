@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.scan.ScanScreen;
 import com.exophrenik.grinia.retrieval.RetrievalScreen;
+import com.exophrenik.grinia.server.ServerSimulationService;
 import com.exophrenik.grinia.utilities.Network;
 
 public class LoginScreen extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class LoginScreen extends AppCompatActivity {
     private ProgressBar connectionSpinner;
     private Button loginButton;
     private Button forgotButton;
+    private boolean onlineMode;
     /*
         Captures the broadcasted intent that either confirms or denies the user's
         login attempt.
@@ -59,6 +61,8 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
+        onlineMode = savedInstanceState.getBoolean("onlineMode");
 
         usernameBox = (TextView) findViewById(R.id.username);
         passwordBox = (TextView) findViewById(R.id.password);
@@ -137,10 +141,19 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void startTheLoginIntentService(){
-        Intent startLoginIntentService = new Intent(LoginScreen.this, LoginIntentService.class);
+        Intent startLoginIntentService;
+        if (onlineMode == true){
+            startLoginIntentService = new Intent(LoginScreen.this, LoginIntentService.class);
+        }
+        else {
+            startLoginIntentService = new Intent(LoginScreen.this, ServerSimulationService.class);
+        }
         startLoginIntentService.putExtra("submittedUsername",usernameBox.getText().toString());
         startLoginIntentService.putExtra("submittedPassword",passwordBox.getText().toString());
+        startLoginIntentService.putExtra("action","login");
         startService(startLoginIntentService);
+
+
     }
 
     @Override

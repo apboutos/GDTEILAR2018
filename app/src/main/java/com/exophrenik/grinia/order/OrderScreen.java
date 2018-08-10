@@ -108,9 +108,9 @@ public class OrderScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendOrderToServer();
-                //Log.d("RED","Im here");
-                //Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
-                //startActivity(nextScreen);
+                Log.d("RED","Im here");
+                Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                startActivity(nextScreen);
 
             }
         });

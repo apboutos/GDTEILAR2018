@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.exophrenik.grinia.R;
@@ -58,7 +59,7 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         CartItem currentItem = getItem(position);
 
         TextView productName = (TextView) cartItemView.findViewById(R.id.itemNameView);
-        final TextView productQuantity = (TextView) cartItemView.findViewById(R.id.itemQuantityView);
+        EditText productQuantity = (EditText) cartItemView.findViewById(R.id.itemQuantityView);
         TextView productPrice = (TextView) cartItemView.findViewById(R.id.itemPriceView);
         Button removeItem = (Button) cartItemView.findViewById(R.id.removeItemButton);
 
@@ -66,6 +67,7 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
         productQuantity.setText(String.valueOf(currentItem.getQuantity()));
         /*//TODO Implement the edit button for quntity functionality
+        // Must also change price when quantity changes
         productQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
