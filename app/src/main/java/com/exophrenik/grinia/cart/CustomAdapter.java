@@ -26,11 +26,13 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
 
     private ArrayList<CartItem> cartList;
     private Context context;
+    private String username;
 
-    public CustomAdapter(ArrayList<CartItem> cartList, Context context) {
+    public CustomAdapter(ArrayList<CartItem> cartList, Context context,String username) {
         super(context, R.layout.cart_list_item,cartList);
         this.cartList = cartList;
         this.context = context;
+        this.username = username;
 
     }
 
@@ -66,8 +68,9 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         productName.setText(currentItem.getName());
         productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
         productQuantity.setText(String.valueOf(currentItem.getQuantity()));
-        /*//TODO Implement the edit button for quntity functionality
-        // Must also change price when quantity changes
+        //TODO Implement the edit button for quntity functionality
+        //TODO Must also change price when quantity changes
+        /*
         productQuantity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -102,7 +105,7 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
 
     private void updateCartListFile(){
 
-        File file = new File(context.getFilesDir(), "cartData");
+        File file = new File(context.getFilesDir(), "cartData" + username);
         if (file.exists()) {
             file.delete();
         }

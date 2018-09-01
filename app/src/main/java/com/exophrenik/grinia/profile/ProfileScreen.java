@@ -24,6 +24,8 @@ import java.io.ObjectOutputStream;
 public class ProfileScreen extends AppCompatActivity {
 
     private Profile profile;
+    private String username;
+    private  boolean onlineMode;
 
     private TextView firstNameBox;
     private TextView middleNameBox;
@@ -38,6 +40,9 @@ public class ProfileScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_screen);
+
+        username = getIntent().getStringExtra("username");
+        onlineMode = getIntent().getBooleanExtra("onlineMode",false);
 
         firstNameBox = (TextView) findViewById(R.id.firstNameBox);
         middleNameBox = (TextView) findViewById(R.id.middleNameBox);
@@ -72,6 +77,8 @@ public class ProfileScreen extends AppCompatActivity {
                 saveProfileToFile();
                 Toast.makeText(getApplicationContext(),"Profile saved",Toast.LENGTH_LONG);
                 Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                nextScreen.putExtra("username",username);
+                nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
             }
         });
@@ -81,6 +88,8 @@ public class ProfileScreen extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                nextScreen.putExtra("username",username);
+                nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
 
             }
@@ -90,7 +99,7 @@ public class ProfileScreen extends AppCompatActivity {
 
     private void readProfileFromFile(){
 
-        File file = new File(getFilesDir(),"profile");
+        File file = new File(getFilesDir(),"profile" + username);
         if (file.exists()){
 
             try {
@@ -112,7 +121,7 @@ public class ProfileScreen extends AppCompatActivity {
 
     private void saveProfileToFile(){
 
-        File file = new File(getFilesDir(),"profile");
+        File file = new File(getFilesDir(),"profile" + username);
 
         profile.setFirstName(firstNameBox.getText().toString());
         profile.setMiddleName(middleNameBox.getText().toString());

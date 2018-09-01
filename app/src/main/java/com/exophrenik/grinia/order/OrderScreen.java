@@ -1,11 +1,13 @@
 package com.exophrenik.grinia.order;
 
+import android.app.IntentService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.product.ProductScreen;
 import com.exophrenik.grinia.scan.ScanScreen;
+import com.exophrenik.grinia.server.ServerSimulationService;
 import com.exophrenik.grinia.utilities.CartItem;
 import com.exophrenik.grinia.utilities.Profile;
 
@@ -48,6 +51,7 @@ public class OrderScreen extends AppCompatActivity {
     private Button completeOrderButton;
     private Button cancelButton;
     private ArrayList<CartItem> cartList;
+    private boolean onlineMode;
 
     public class OrderResponseReceiver extends BroadcastReceiver {
 
@@ -57,16 +61,25 @@ public class OrderScreen extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
                 Log.d("RED","red");
-                if (intent.getBooleanExtra("connectionError",false) == false){
+                if (intent.getBooleanExtra("connectionError",false)){
 
                     showInfo("Server does not respond");
 
                 }
-                if(intent.getBooleanExtra("orderResult",false) == false){
-                    showInfo("Error: Your order was not submitted");
-                }
                 else {
-                    showInfo("Thank you, your order has been submmitted.");
+                    if(intent.getBooleanExtra("orderResult",false) == false){
+                        showInfo("Error: Your order was not submitted");
+                    }
+                    else {
+                        Toast registerComplete = Toast.makeText(getApplicationContext(),R.string.order_complete_message,Toast.LENGTH_SHORT);
+                        registerComplete.setGravity(Gravity.CENTER,0,0);
+                        registerComplete.show();
+
+                        Intent nextScreen = new Intent(getApplicationContext(),ScanScreen.class);
+                        nextScreen.putExtra("onlineMode",onlineMode);
+                        nextScreen.putExtra("username",username);
+                        startActivity(nextScreen);
+                    }
                 }
 
         }
@@ -82,6 +95,8 @@ public class OrderScreen extends AppCompatActivity {
         setContentView(R.layout.activity_order_screen);
 
         cartList = (ArrayList<CartItem>) getIntent().getSerializableExtra("cartList");
+        onlineMode = getIntent().getBooleanExtra("onlineMode",false);
+        username = getIntent().getStringExtra("username");
 
         firstNameBox = (TextView) findViewById(R.id.orderFirstNameBox);
         middleNameBox = (TextView) findViewById(R.id.orderMiddleNameBox);
@@ -91,7 +106,7 @@ public class OrderScreen extends AppCompatActivity {
         creditCardBox = (TextView) findViewById(R.id.orderCreditCardNumberBox);
         cvsBox = (TextView) findViewById(R.id.orderCVSBox);
         expirationDateBox = (TextView) findViewById(R.id.orderCreditExpirationBox);
-        itemList = (ListView) findViewById(R.id.orderItemList);
+        //itemList = (ListView) findViewById(R.id.orderItemList);
         priceLabel = (TextView) findViewById(R.id.orderTotalPriceLabelBox);
         priceBox = (TextView) findViewById(R.id.orderTotalPriceBox);
         completeOrderButton = (Button) findViewById(R.id.orderCompleteButton);
@@ -109,8 +124,6 @@ public class OrderScreen extends AppCompatActivity {
             public void onClick(View v) {
                 sendOrderToServer();
                 Log.d("RED","Im here");
-                Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
-                startActivity(nextScreen);
 
             }
         });
@@ -120,19 +133,21 @@ public class OrderScreen extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                nextScreen.putExtra("username",username);
+                nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
             }
         });
 
 
         readProfileData();
-        itemList.setAdapter(new OrderListCustomAdapter(cartList,getApplicationContext()));
+//        itemList.setAdapter(new OrderListCustomAdapter(cartList,getApplicationContext()));
 
     }
 
     private void readProfileData(){
 
-        File file = new File (getFilesDir(),"profile");
+        File file = new File (getFilesDir(),"profile" + username);
         Profile profile = new Profile();
         if(file.exists()){
 
@@ -163,7 +178,13 @@ public class OrderScreen extends AppCompatActivity {
 
     private void sendOrderToServer(){
         try {
-            Intent orderIntentService = new Intent(OrderScreen.this, OrderIntentService.class);
+            Intent  orderIntentService;
+            if(onlineMode == true){
+                orderIntentService = new Intent(OrderScreen.this, OrderIntentService.class);
+            }
+            else{
+                orderIntentService = new Intent(OrderScreen.this, ServerSimulationService.class);
+            }
             orderIntentService.putExtra("username",username);
             orderIntentService.putExtra("firstName",firstNameBox.getText().toString());
             orderIntentService.putExtra("middleName",middleNameBox.getText().toString());
@@ -174,6 +195,7 @@ public class OrderScreen extends AppCompatActivity {
             orderIntentService.putExtra("expirationDate",expirationDateBox.getText().toString());
             orderIntentService.putExtra("cvs",cvsBox.getText().toString());
             orderIntentService.putExtra("cartList",cartList);
+            orderIntentService.putExtra("action","order");
             startService(orderIntentService);
         }
         catch (Exception e){
@@ -183,7 +205,9 @@ public class OrderScreen extends AppCompatActivity {
 
 
     private void showInfo(String message){
-        Toast.makeText(this.getApplicationContext(),message,Toast.LENGTH_LONG);
+        Toast registerComplete = Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT);
+        registerComplete.setGravity(Gravity.CENTER,0,0);
+        registerComplete.show();
     }
 
 

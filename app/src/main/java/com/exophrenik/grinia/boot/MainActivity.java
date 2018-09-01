@@ -3,10 +3,11 @@ package com.exophrenik.grinia.boot;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
-import android.widget.TextView;
+
 
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.scan.ScanScreen;
@@ -18,7 +19,6 @@ import com.exophrenik.grinia.register.RegisterScreen;
 public class MainActivity extends AppCompatActivity {
 
     private Intent nextScreen;
-    private TextView modeLabel;
     private boolean onlineMode;
 
     @Override
@@ -59,24 +59,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 nextScreen = new Intent(getApplicationContext(),ScanScreen.class);
                 nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username","root");
                 startActivity(nextScreen);
             }
         });
 
-        modeLabel = (TextView) findViewById(R.id.modeLabel);
-
         final Switch offlineSwitch = (Switch) findViewById(R.id.offlineSwitch);
+        offlineSwitch.setTextOff("offline");
+        offlineSwitch.setTextOn("online");
+
         offlineSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 nextScreen = new Intent(getApplicationContext(),ScanScreen.class);
-                if (offlineSwitch.isActivated()) {
+                if (offlineSwitch.isChecked()) {
                    onlineMode = true;
-                   modeLabel.setText("online");
+                    Log.d("RED","online");
                 }
                 else{
                    onlineMode = false;
-                   modeLabel.setText("offline");
+                    Log.d("RED","offline");
                 }
 
             }

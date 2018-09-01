@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -48,6 +49,8 @@ public class LoginScreen extends AppCompatActivity {
             else if (intent.getBooleanExtra("authenticationResult",false))
             {
                 newScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                newScreen.putExtra("onlineMode",onlineMode);
+                newScreen.putExtra("username",usernameBox.getText().toString());
                 startActivity(newScreen);
             }
             else
@@ -62,7 +65,7 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        onlineMode = savedInstanceState.getBoolean("onlineMode");
+        onlineMode = getIntent().getBooleanExtra("onlineMode", false);
 
         usernameBox = (TextView) findViewById(R.id.username);
         passwordBox = (TextView) findViewById(R.id.password);
@@ -144,9 +147,11 @@ public class LoginScreen extends AppCompatActivity {
         Intent startLoginIntentService;
         if (onlineMode == true){
             startLoginIntentService = new Intent(LoginScreen.this, LoginIntentService.class);
+            Log.d("RED","Logging in online");
         }
         else {
             startLoginIntentService = new Intent(LoginScreen.this, ServerSimulationService.class);
+            Log.d("RED","Logging in offline");
         }
         startLoginIntentService.putExtra("submittedUsername",usernameBox.getText().toString());
         startLoginIntentService.putExtra("submittedPassword",passwordBox.getText().toString());

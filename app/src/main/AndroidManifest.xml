@@ -49,6 +49,10 @@
         <service
             android:name=".order.OrderIntentService"
             android:exported="false" />
+
+        <service
+            android:name=".server.ServerSimulationService"
+            android:exported="false" />
         <activity android:name=".product.ProductScreen" />
         <activity android:name=".order.OrderScreen"></activity>
     </application>

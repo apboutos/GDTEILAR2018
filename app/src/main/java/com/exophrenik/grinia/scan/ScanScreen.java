@@ -36,6 +36,7 @@ public class ScanScreen extends AppCompatActivity {
     private String barcodeResult;
     private ProgressBar connectionSpinner;
     private boolean onlineMode;
+    private String username;
 
 
     public class ScanResponseReceiver extends BroadcastReceiver {
@@ -62,6 +63,8 @@ public class ScanScreen extends AppCompatActivity {
                 nextScreen.putExtra("productDescription",productDescription);
                 nextScreen.putExtra("productPrice",productPrice);
                 nextScreen.putExtra("barcode",barcodeResult);
+                nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username",username);
                 startActivity(nextScreen);
             }
             // Product not found error
@@ -77,7 +80,11 @@ public class ScanScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_screen);
 
-        onlineMode = savedInstanceState.getBoolean("onlineMode");
+        onlineMode = getIntent().getBooleanExtra("onlineMode", false);
+        if ((username = getIntent().getStringExtra("username")) == null){
+            username = "root";
+        }
+
         integrator = new IntentIntegrator(this);
         scanButton = (Button) findViewById(R.id.scanButton);
         cartButton = (Button) findViewById(R.id.cartButton);
@@ -108,6 +115,8 @@ public class ScanScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 nextScreen = new Intent(getApplicationContext(), CartScreen.class);
+                nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username",username);
                 startActivity(nextScreen);
             }
         });
@@ -116,6 +125,8 @@ public class ScanScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 nextScreen = new Intent(getApplicationContext(), ProfileScreen.class);
+                nextScreen.putExtra("username",username);
+                nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
             }
         });

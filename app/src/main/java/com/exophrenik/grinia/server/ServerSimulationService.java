@@ -3,11 +3,18 @@ package com.exophrenik.grinia.server;
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.exophrenik.grinia.login.LoginScreen;
+import com.exophrenik.grinia.order.OrderScreen;
 import com.exophrenik.grinia.register.RegisterScreen;
 import com.exophrenik.grinia.scan.ScanScreen;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class ServerSimulationService extends IntentService {
@@ -23,6 +30,7 @@ public class ServerSimulationService extends IntentService {
 
 
         action = intent.getStringExtra("action");
+        Log.d("RED",action);
         loadUserList();
         loadProductList();
 
@@ -93,21 +101,61 @@ public class ServerSimulationService extends IntentService {
                 broadcastScanResponse(false,"",0.0,"");
             }
         }
+        if(action.equals("order")){
+            broadcastOrderResponse(false,true);
+        }
     }
 
 
     private void loadUserList() {
 
         userList = new ArrayList<>();
-        User exophrenik = new User();
-        exophrenik.setUsername("exophrenik");
-        exophrenik.setPassword("ma582468");
-        exophrenik.setEmail("exophrenik@gmail.com");
-        userList.add(exophrenik);
+        File file = new File(getApplicationContext().getFilesDir(), "offlineUserData");
+        // If the file exists read the userList from the file otherwise create a new empty arrayList
+        if (file.exists()) {
+            try {
+                FileInputStream inputStream = new FileInputStream(file.getPath());
+                ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                userList = (ArrayList<User>) objectInputStream.readObject();
+                objectInputStream.close();
+                inputStream.close();
+                Log.d("RED","CartList exists");
+            }
+            catch (Exception e) {
+                Log.d("RED", e.getMessage());
+            }
+        }
+        else {
+            userList = new ArrayList<User>();
+            Log.d("RED","CartList doesnt exist.");
+        }
+
+
     }
 
     private void updateUserList(){
 
+        File file = new File(getApplicationContext().getFilesDir(), "offlineUserData");
+        // Write the cartList as a serializable object in the new file we just created
+        if (file.exists()){
+            file.delete();
+            try{
+                file.createNewFile();
+            }
+            catch (Exception e){
+                Log.d("RED",e.getMessage());
+            }
+
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(file.getPath());
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(userList);
+            oos.close();
+        }
+        catch (Exception e){
+            Log.d("RED",e.getMessage());
+        }
     }
 
 
@@ -145,6 +193,15 @@ public class ServerSimulationService extends IntentService {
         barcodeRespondIntent.addCategory(Intent.CATEGORY_DEFAULT);
         barcodeRespondIntent.setAction(ScanScreen.ScanResponseReceiver.SERVER_SCAN_RESPONSE);
         sendBroadcast(barcodeRespondIntent);
+    }
+
+    private void broadcastOrderResponse(boolean connectionError,boolean orderResult){
+        Intent orderRespondIntent = new Intent();
+        orderRespondIntent.putExtra("orderResult",orderResult);
+        orderRespondIntent.putExtra("connectionError", connectionError);
+        orderRespondIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        orderRespondIntent.setAction(OrderScreen.OrderResponseReceiver.SERVER_ORDER_RESPONSE);
+        sendBroadcast(orderRespondIntent);
     }
 
     private void loadProductList(){

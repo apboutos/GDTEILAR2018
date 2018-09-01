@@ -33,7 +33,7 @@ public class OrderIntentService extends IntentService{
 
     @Override
     protected void onHandleIntent( Intent intent) {
-        Log.d("RED","Hellow world");
+        Log.d("RED","Hello world");
         try {
 
             formatOrderInformationInJSON(intent);

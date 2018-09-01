@@ -59,7 +59,7 @@ public class RegisterScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
-        onlineMode = savedInstanceState.getBoolean("onlineMode");
+        onlineMode = getIntent().getBooleanExtra("onlineMode", false);
 
         registerButton    = (Button)      findViewById(R.id.register_button);
         usernameBox       = (EditText)    findViewById(R.id.register_username);
@@ -120,6 +120,7 @@ public class RegisterScreen extends AppCompatActivity {
         registerComplete.show();
 
         Intent intent = new Intent(getApplicationContext(),LoginScreen.class);
+        intent.putExtra("onlineMode",onlineMode);
         startActivity(intent);
 
     }

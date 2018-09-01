@@ -18,7 +18,9 @@ import com.exophrenik.grinia.utilities.CartItem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class CartScreen extends AppCompatActivity {
@@ -28,13 +30,16 @@ public class CartScreen extends AppCompatActivity {
     private Button orderButton;
     private Button cancelButton;
     private CustomAdapter adapter;
+    private boolean onlineMode;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_screen);
 
-
+        onlineMode = getIntent().getBooleanExtra("onlineMode",false);
+        username = getIntent().getStringExtra("username");
         cartListView = (ListView) findViewById(R.id.cartListView);
         orderButton  = (Button) findViewById(R.id.orderButton);
         cancelButton = (Button) findViewById(R.id.cancelButton);
@@ -44,14 +49,17 @@ public class CartScreen extends AppCompatActivity {
 
 
 
-        adapter = new CustomAdapter(cartList,getApplicationContext());
+        adapter = new CustomAdapter(cartList,getApplicationContext(),username);
         cartListView.setAdapter(adapter);
 
         orderButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 Intent nextScreen = new Intent(getApplicationContext(), OrderScreen.class);
                 nextScreen.putExtra("cartList",cartList);
+                nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username",username);
                 startActivity(nextScreen);
             }
         });
@@ -59,7 +67,10 @@ public class CartScreen extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
                 Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
+                nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username",username);
                 startActivity(nextScreen);
             }
         });
@@ -68,7 +79,7 @@ public class CartScreen extends AppCompatActivity {
 
     private void readCartListFromFile(){
 
-        File file = new File(getApplicationContext().getFilesDir(), "cartData");
+        File file = new File(getApplicationContext().getFilesDir(), "cartData" + username);
         // If the file exists read the cartList from the file otherwise create a new empty arrayList
         if (file.exists()) {
             try {
@@ -88,7 +99,4 @@ public class CartScreen extends AppCompatActivity {
             Log.d("RED","CartList doesnt exist.");
         }
     }
-
-
-
 }

@@ -33,6 +33,8 @@ public class ProductScreen extends AppCompatActivity {
     private TextView productDescriptionBox;
     private TextView productQuantityBox;
     private Button addToCartButton;
+    private Boolean onlineMode;
+    private String username;
 
 
     private ArrayList<CartItem> cartList;
@@ -47,7 +49,8 @@ public class ProductScreen extends AppCompatActivity {
         setContentView(R.layout.activity_product_screen);
 
         productBundle = getIntent().getExtras();
-
+        onlineMode = getIntent().getBooleanExtra("onlineMode", false);
+        username = getIntent().getStringExtra("username");
         productNameBox = (TextView) findViewById(R.id.productName);
         productDescriptionBox = (TextView) findViewById(R.id.productDescription);
         productPriceBox = (TextView) findViewById(R.id.productPrice);
@@ -65,19 +68,12 @@ public class ProductScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                /*
-                CartItem item = new CartItem();
-                item.setName(productNameBox.getText().toString());
-                item.setDescription(productDescriptionBox.getText().toString());
-                item.setPriceOfUnit(productBundle.getDouble("productPrice"));
-                item.setQuantity(Integer.parseInt(productQuantityBox.getText().toString()));
-                item.setTotalPrice();
-                */
-
                 readItemList();
                 updateItemList();
 
                 nextScreen = new Intent(getApplicationContext(),ScanScreen.class);
+                nextScreen.putExtra("onlineMode",onlineMode);
+                nextScreen.putExtra("username",username);
                 startActivity(nextScreen);
             }
         });
@@ -87,7 +83,7 @@ public class ProductScreen extends AppCompatActivity {
 
     private void readItemList() {
 
-        File file = new File(getApplicationContext().getFilesDir(), "cartData");
+        File file = new File(getApplicationContext().getFilesDir(), "cartData" + username);
 
         // If the file exists read the arrayList from the file, otherwise create an empty arrayList
         if (file.exists()) {
@@ -123,7 +119,7 @@ public class ProductScreen extends AppCompatActivity {
 
 
 
-        File file = new File(getApplicationContext().getFilesDir(), "cartData");
+        File file = new File(getApplicationContext().getFilesDir(), "cartData" + username);
         // Write the cartList as a serializable object in the new file we just created
         try {
             FileOutputStream fos = new FileOutputStream(file.getPath());

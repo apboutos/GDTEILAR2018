@@ -11,13 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/WelcomeImage"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="137dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
@@ -108,21 +110,11 @@
 
         <Switch
             android:id="@+id/offlineSwitch"
-            android:layout_width="104dp"
+            android:layout_width="204dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Switch" />
-
-        <EditText
-            android:id="@+id/modeLabel"
-            style="@style/entryBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="online"
-            android:textAlignment="center" />
+            android:gravity="center_horizontal"
+            android:text="Switch"
+            android:visibility="visible" />
 
     </LinearLayout>
 

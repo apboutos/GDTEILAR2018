@@ -29,6 +29,9 @@
     <string name="register_complete_message">Η εγγραφή σας ολοκηρώθηκε με επιτυχία.</string>
 
 
+    <string name="order_complete_message">Η παραγγελία σας ολοκληρώθηκε με επιτυχία.</string>
+
+
     <string name="retrieve_button">ΑΝΑΚΤΗΣΗ</string>
     <string name="retrieve_instructions">Εισάγετε το e-mail του λογαριασμού για να σας αποσταλούν οι κωδικοί εισόδου.</string>
     <string name="retrieve_instructions_result">Οι κωδικοί εισόδου έχουν αποσταλεί στο e-mail σας.</string>
