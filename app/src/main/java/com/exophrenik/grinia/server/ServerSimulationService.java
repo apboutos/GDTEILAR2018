@@ -208,7 +208,7 @@ public class ServerSimulationService extends IntentService {
 
         productList = new ArrayList<>();
         Product potato = new Product();
-        potato.setBarcode("0123456789012");
+        potato.setBarcode("123456789012");
         potato.setName("Πατάτα");
         potato.setPrice(1.2);
         potato.setDescription("Η πατάτα είναι ένα λαχανικό πλύσιο σε υδατάνθρακες. Οι πατάτες μας" +
@@ -222,7 +222,7 @@ public class ServerSimulationService extends IntentService {
                 " λαχανικά τόσο για τον άνθρωπο, όσο και για τα οικόσιτα ζώα.");
         productList.add(corn);
         Product tomato = new Product();
-        tomato.setBarcode("TODO");
+        tomato.setBarcode("9501101530003");
         tomato.setName("Ντομάτα");
         tomato.setDescription("Ντοματες Νευροκοπίου. Μεγαλωμένες στο βουνό, μόνο με νερό. Τις τρως" +
                 " το καλοκαίρι και σου φτιάχνει η διάθεση.");
@@ -231,7 +231,7 @@ public class ServerSimulationService extends IntentService {
         Product peach = new Product();
         peach.setName("Ροδάκινο");
         peach.setPrice(4.2);
-        peach.setBarcode("TODO");
+        peach.setBarcode("416000336108");
         peach.setDescription("Ροδάκινα χωρίς κουκούτσι από ειδικά διαμορφωμένο σπόρο. Ότι καλύτερο" +
                 " κυκλοφτορεί.");
         productList.add(peach);
