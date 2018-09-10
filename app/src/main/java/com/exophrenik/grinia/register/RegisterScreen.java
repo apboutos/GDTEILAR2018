@@ -37,7 +37,7 @@ public class RegisterScreen extends AppCompatActivity {
 
     public class RegisterResponseReceiver extends BroadcastReceiver {
 
-        public static final String SERVER_REGISTER_RESPONSE = "";
+        public static final String SERVER_REGISTER_RESPONSE = "server";
         @Override
         public void onReceive(Context context, Intent intent) {
 

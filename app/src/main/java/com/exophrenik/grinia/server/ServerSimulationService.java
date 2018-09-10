@@ -102,7 +102,7 @@ public class ServerSimulationService extends IntentService {
             }
         }
         if(action.equals("order")){
-            broadcastOrderResponse(false,true);
+            broadcastOrderResponse(true,true);
         }
     }
 
@@ -119,7 +119,7 @@ public class ServerSimulationService extends IntentService {
                 userList = (ArrayList<User>) objectInputStream.readObject();
                 objectInputStream.close();
                 inputStream.close();
-                Log.d("RED","CartList exists");
+                //Log.d("RED","CartList exists");
             }
             catch (Exception e) {
                 Log.d("RED", e.getMessage());
@@ -127,7 +127,7 @@ public class ServerSimulationService extends IntentService {
         }
         else {
             userList = new ArrayList<User>();
-            Log.d("RED","CartList doesnt exist.");
+            //Log.d("RED","CartList doesnt exist.");
         }
 
 
@@ -201,7 +201,9 @@ public class ServerSimulationService extends IntentService {
         orderRespondIntent.putExtra("connectionError", connectionError);
         orderRespondIntent.addCategory(Intent.CATEGORY_DEFAULT);
         orderRespondIntent.setAction(OrderScreen.OrderResponseReceiver.SERVER_ORDER_RESPONSE);
+        Log.d("RED","IM here");
         sendBroadcast(orderRespondIntent);
+        Log.d("RED","IM here");
     }
 
     private void loadProductList(){

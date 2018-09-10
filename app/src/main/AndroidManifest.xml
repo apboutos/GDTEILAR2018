@@ -23,18 +23,10 @@
         <activity android:name=".login.LoginScreen" />
         <activity android:name=".register.RegisterScreen" />
         <activity android:name=".guest.GuestScreen" />
-        <activity android:name=".scan.ScanScreen"
-                  android:parentActivityName="com.exophrenik.grinia.boot.MainActivity"
-        />
+        <activity android:name=".scan.ScanScreen" />
         <activity android:name=".retrieval.RetrievalScreen" />
-
-        <service
-            android:name=".login.LoginIntentService"
-            android:exported="false" />
-        <service
-            android:name=".register.RegisterIntentService"
-            android:exported="false" />
-
+        <activity android:name=".product.ProductScreen" />
+        <activity android:name=".order.OrderScreen" />
         <activity
             android:name=".cart.CartScreen"
             android:label="@string/title_activity_cart_screen"
@@ -43,18 +35,21 @@
         <activity android:name=".profile.ProfileScreen" />
 
         <service
+            android:name=".login.LoginIntentService"
+            android:exported="false" />
+        <service
+            android:name=".register.RegisterIntentService"
+            android:exported="false" />
+        <service
             android:name=".scan.ScanIntentService"
             android:exported="false" />
-
         <service
             android:name=".order.OrderIntentService"
             android:exported="false" />
-
         <service
             android:name=".server.ServerSimulationService"
             android:exported="false" />
-        <activity android:name=".product.ProductScreen" />
-        <activity android:name=".order.OrderScreen"></activity>
+
     </application>
 
 </manifest>

@@ -41,11 +41,11 @@ public class ScanIntentService extends IntentService {
 
             //serverSimulation(intent);
 
-            formatBarcodeInformationInJSON(intent);
+            //formatBarcodeInformationInJSON(intent);
 
-            createConnectionToServer();
+            createConnectionToServer(intent);
 
-            sendBarcodeInformationToServer();
+            //sendBarcodeInformationToServer();
 
             readBarcodeResultFromServer();
 
@@ -89,25 +89,28 @@ public class ScanIntentService extends IntentService {
 
     }
 
+    /*
     private void formatBarcodeInformationInJSON(Intent intent) throws Exception{
         String submittedBarcode = intent.getStringExtra("submittedBarcode");
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("barcode", submittedBarcode);
         barcodeInformation = jsonObject.toString();
 
-    }
+    }*/
 
-    private void createConnectionToServer()throws Exception {
+    private void createConnectionToServer(Intent intent)throws Exception {
 
-        connection = (HttpURLConnection) new URL(getResources().getString(R.string.scan_URL)).openConnection();
+        String submittedBarcode = intent.getStringExtra("submittedBarcode");
+        connection = (HttpURLConnection) new URL(getResources().getString(R.string.scan_URL) + "?barcode=" + submittedBarcode).openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
         connection.setRequestProperty("Accept","application/json: charset=UTF-8");
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
         Log.d("DEBUG","Request method " + connection.getRequestMethod());
     }
 
+    /*
     private void sendBarcodeInformationToServer() throws Exception{
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         writer.write(barcodeInformation);
@@ -115,7 +118,7 @@ public class ScanIntentService extends IntentService {
         Log.e("DEBUG","LOG: " + barcodeInformation); // Prints the sent JSON object.
         writer.close();
         Log.d("DEBUG","Response Message " + connection.getResponseMessage());
-    }
+    }*/
 
     private void readBarcodeResultFromServer() throws Exception{
 

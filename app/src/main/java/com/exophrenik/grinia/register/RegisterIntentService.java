@@ -34,11 +34,11 @@ public class RegisterIntentService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         try{
-            formatRegistrationInformationInJSON(intent);
+            //formatRegistrationInformationInJSON(intent);
 
-            createConnectionToServer();
+            createConnectionToServer(intent);
 
-            sendRegisterInformationToServer();
+            //sendRegisterInformationToServer();
 
             readRegistrationResultFromServer();
         }
@@ -67,6 +67,7 @@ public class RegisterIntentService extends IntentService {
 
     }
 
+    /*
     private void formatRegistrationInformationInJSON(Intent intent) throws Exception{
 
         JSONObject jsonObject = new JSONObject();
@@ -74,26 +75,30 @@ public class RegisterIntentService extends IntentService {
         jsonObject.put("password",intent.getStringExtra("password"));
         jsonObject.put("email",intent.getStringExtra("email"));
         registerInformation = jsonObject.toString();
-    }
+    }*/
 
-    private void createConnectionToServer()throws Exception {
+    private void createConnectionToServer(Intent intent)throws Exception {
 
-        URL url = new URL(getResources().getString(R.string.register_URL));
+        String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+        String email    = intent.getStringExtra("email");
+        URL url = new URL(getResources().getString(R.string.register_URL) + "/?username=" + username + "&password=" + password + "&email=" + email);
         connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
         connection.setRequestProperty("Accept","application/json: charset=UTF-8");
-        connection.setRequestMethod("POST");
+        connection.setRequestMethod("GET");
     }
 
+    /*
     private void sendRegisterInformationToServer() throws Exception{
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         writer.write(registerInformation);
         writer.flush();
         writer.close();
         Log.e("DEBUG","JSON sent: " + registerInformation); // Prints the sent JSON object as it was sent to the server.
-    }
+    }*/
 
     private void readRegistrationResultFromServer() throws Exception{
 

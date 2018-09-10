@@ -30,6 +30,7 @@
 
 
     <string name="order_complete_message">Η παραγγελία σας ολοκληρώθηκε με επιτυχία.</string>
+    <string name="order_price_sum">Συνολική τιμή</string>
 
 
     <string name="retrieve_button">ΑΝΑΚΤΗΣΗ</string>
@@ -40,8 +41,9 @@
 
     <string name="scan_barcode_error">Το προιόν που σκανάρατε δεν βρέθηκε.</string>
 
-    <string name="login_URL">http://snippy.flnet.org/barcode/public/login</string>
-    <string name="register_URL">http://snippy.flnet.org/barcode/public/register</string>
-    <string name="scan_URL">http://snippy.flnet.org/barcode/public/scan</string>
-    <string name="order_URL">http://snippy.flnet.org/barcode/public/order</string>
+    <string name="test_URL">http://www.masterpaint.gr/test.php</string>
+    <string name="login_URL">http://www.masterpaint.gr/login.php</string>
+    <string name="register_URL">http://www.masterpaint.gr/register.php</string>
+    <string name="scan_URL">http://www.masterpaint.gr/scan.php</string>
+    <string name="order_URL">http://www.masterpaint.gr/order.php</string>
 </resources>

@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.exophrenik.grinia.R;
-import com.exophrenik.grinia.login.LoginScreen;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -36,17 +36,17 @@ public class LoginIntentService extends IntentService {
 
         try {
 
-            formatLoginInformationInJSON(intent);
+            //formatLoginInformationInJSON(intent);
 
-            createConnectionToServer();
+            createConnectionToServer(intent);
 
-            sendLoginInformationToServer();
+           // sendLoginInformationToServer();
 
             readAuthenticationResultFromServer();
 
         }
         catch (Exception e) {
-            Log.d("RED",e.getMessage());
+            Log.d("RED","Error: " + e.getMessage());
             unreachableError = true;
         }
         finally {
@@ -56,6 +56,7 @@ public class LoginIntentService extends IntentService {
 
     }
 
+    /*
     private void formatLoginInformationInJSON(Intent intent) throws Exception{
         try {
             String submittedUsername = intent.getStringExtra("submittedUsername");
@@ -64,32 +65,35 @@ public class LoginIntentService extends IntentService {
             jsonObject.put("username", submittedUsername);
             jsonObject.put("password", submittedPassword);
             loginInformation = jsonObject.toString();
-            Log.d("RED",loginInformation);
+            Log.d("RED","Login Info: " + loginInformation);
         }
         catch (Exception e) {
             Log.d("RED",e.getMessage());
         }
-    }
+    }*/
 
-    private void createConnectionToServer()throws Exception {
+    private void createConnectionToServer(Intent intent)throws Exception {
 
-        connection = (HttpURLConnection) new URL(getResources().getString(R.string.login_URL)).openConnection();
+        String submittedUsername = intent.getStringExtra("submittedUsername");
+        String submittedPassword = intent.getStringExtra("submittedPassword");
+        connection = (HttpURLConnection) new URL("http://www.masterpaint.gr/login.php" + "/?username=" + submittedUsername.toString() + "&password=" + submittedPassword).openConnection();//getResources().getString()).openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
         connection.setRequestProperty("Accept","application/json: charset=UTF-8");
-        connection.setRequestMethod("POST");
-        Log.d("DEBUG","Request method " + connection.getRequestMethod());
+        connection.setRequestMethod("GET");
+        Log.d("RED","Request method " + connection.getRequestMethod());
     }
 
+    /*
     private void sendLoginInformationToServer() throws Exception{
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         writer.write(loginInformation);
         writer.flush();
-        Log.e("DEBUG","LOG: " + loginInformation); // Prints the sent JSON object.
+        Log.e("RED","LOG: " + loginInformation); // Prints the sent JSON object.
         writer.close();
-        Log.d("DEBUG","Response Message " + connection.getResponseMessage());
-    }
+        Log.d("RED","Response Message " + connection.getResponseMessage());
+    }*/
 
     private void readAuthenticationResultFromServer() throws Exception{
 
@@ -101,12 +105,6 @@ public class LoginIntentService extends IntentService {
         }
         Log.d("RED","LOG: " + stringBuilder.toString()); // Prints the received unparsed JSON object.
         String tmp = stringBuilder.toString();
-        /*TODO
-          There is a bug here. The PHP server does not return a properly formatted JSON string
-          and it cannot be converted to a JSON object. Possible but not working solution is
-          to substring the server's response contained in tmp like this ----->
-          tmp.substring(tmp.indexOf("{"), tmp.lastIndexOf("}") + 1));
-         */
         JSONObject jsonObject = new JSONObject(tmp);
         authenticationResult = jsonObject.getBoolean("authenticationResult");
     }
