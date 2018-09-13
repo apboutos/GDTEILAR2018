@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.utilities.CartItem;
@@ -68,24 +69,6 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         productName.setText(currentItem.getName());
         productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
         productQuantity.setText(String.valueOf(currentItem.getQuantity()));
-        //TODO Implement the edit button for quntity functionality
-        //TODO Must also change price when quantity changes
-        /*
-        productQuantity.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-        });*/
 
 
         removeItem.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +81,9 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
                 updateCartListFile();
             }
         });
+
+        productQuantity.setOnFocusChangeListener(new CustomOnFocusListener(productQuantity,position,productPrice,currentItem));
+
 
         return cartItemView;
     }
@@ -119,6 +105,38 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         catch (Exception e){
             Log.d("RED",e.getMessage());
         }
+
+    }
+
+    public class CustomOnFocusListener implements View.OnFocusChangeListener {
+
+        EditText productQuantity;
+        TextView productPrice;
+        int position;
+        CartItem currentItem;
+        public CustomOnFocusListener(EditText productQuantity, int position, TextView productPrice, CartItem currentItem){
+            this.productQuantity = productQuantity;
+            this.position = position;
+            this.productPrice = productPrice;
+            this.currentItem = currentItem;
+        }
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+
+
+            if (hasFocus){
+                cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                updateCartListFile();
+                productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
+            }
+            if (!hasFocus){
+                cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                updateCartListFile();
+                productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
+            }
+        }
+
 
     }
 

@@ -15,7 +15,9 @@ import com.exophrenik.grinia.utilities.CartItem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class CartScreen extends AppCompatActivity {
@@ -51,6 +53,7 @@ public class CartScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+
                 Intent nextScreen = new Intent(getApplicationContext(), OrderScreen.class);
                 nextScreen.putExtra("cartList",cartList);
                 nextScreen.putExtra("onlineMode",onlineMode);
@@ -74,6 +77,7 @@ public class CartScreen extends AppCompatActivity {
 
     private void readCartListFromFile(){
 
+
         File file = new File(getApplicationContext().getFilesDir(), "cartData" + username);
         // If the file exists read the cartList from the file otherwise create a new empty arrayList
         if (file.exists()) {
@@ -94,4 +98,5 @@ public class CartScreen extends AppCompatActivity {
             Log.d("RED","CartList doesnt exist.");
         }
     }
+
 }
