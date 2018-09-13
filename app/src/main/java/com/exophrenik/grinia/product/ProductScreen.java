@@ -115,10 +115,21 @@ public class ProductScreen extends AppCompatActivity {
         item.setDescription(productBundle.getString("productDescription","Ta kalutera anavolika tou magaziou"));
         item.setPriceOfUnit(productBundle.getDouble("productPrice",13.87));
         item.setQuantity(Integer.parseInt(productQuantityBox.getText().toString()));
-        cartList.add(item);
 
 
+        boolean itemExists = false;
+        for (CartItem tmp : cartList){
 
+            if (tmp.getBarcode().equals(item.getBarcode())){
+
+                tmp.setQuantity(tmp.getQuantity() + item.getQuantity());
+                itemExists = true;
+                break;
+            }
+        }
+        if (!itemExists){
+            cartList.add(item);
+        }
         File file = new File(getApplicationContext().getFilesDir(), "cartData" + username);
         // Write the cartList as a serializable object in the new file we just created
         try {
