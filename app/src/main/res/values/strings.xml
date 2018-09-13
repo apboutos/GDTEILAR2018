@@ -40,6 +40,7 @@
     <string name="title_activity_cart_screen">CartScreen</string>
 
     <string name="scan_barcode_error">Το προιόν που σκανάρατε δεν βρέθηκε.</string>
+    <string name="no_scan_barcode_error">Δεν σκαναρατε κατι.</string>
 
     <string name="test_URL">http://www.masterpaint.gr/test.php</string>
     <string name="login_URL">http://www.masterpaint.gr/login.php</string>

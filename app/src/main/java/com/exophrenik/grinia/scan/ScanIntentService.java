@@ -39,6 +39,11 @@ public class ScanIntentService extends IntentService {
 
         try {
 
+            if(intent.getStringExtra("submittedBarcode").equals("null")){
+                Intent barcodeRespondIntent = new Intent();
+                barcodeRespondIntent.putExtra("noBarcodeScanned",true);
+            }
+
             //serverSimulation(intent);
 
             //formatBarcodeInformationInJSON(intent);
@@ -58,33 +63,6 @@ public class ScanIntentService extends IntentService {
             broadcastResponse();
             connection.disconnect();
         }
-
-
-    }
-
-    //TODO This function simulates the server's response and must be deleted when the
-    //server is implemented
-    private void serverSimulation(Intent intent){
-
-        if (intent.getStringExtra("submittedBarcode").equals("123456789012"))
-        {
-            barcodeResult = true;
-            productName = "Patates";
-            productDescription = "Oi patates einai polu kales";
-            productPrice = 12.3;
-        }
-        else if (intent.getStringExtra("submittedBarcode").equals("671860013624"))
-        {
-            barcodeResult = true;
-            productName = "Ntomates";
-            productDescription = "Oi ntomates einai sapies";
-            productPrice = 22.3;
-        }
-        else{
-            barcodeResult = false;
-        }
-
-
 
 
     }

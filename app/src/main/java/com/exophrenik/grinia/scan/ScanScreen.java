@@ -47,7 +47,10 @@ public class ScanScreen extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             enableInterface();
-            if(intent.getBooleanExtra("connectionError", false))
+            if (intent.getBooleanExtra("noBarcodeScanned",false)){
+                showError(R.string.no_scan_barcode_error);
+            }
+            else if(intent.getBooleanExtra("connectionError", false))
             {
                 showError(R.string.login_error_server_unreachable);
             }
@@ -194,4 +197,25 @@ public class ScanScreen extends AppCompatActivity {
         //TODO Implement error output
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        filter = new IntentFilter();
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        filter.addAction(LoginScreen.LoginResponseReceiver.SERVER_LOGIN_RESPONSE);
+        receiver = new ScanScreen.ScanResponseReceiver();
+        registerReceiver(receiver,filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
 }
