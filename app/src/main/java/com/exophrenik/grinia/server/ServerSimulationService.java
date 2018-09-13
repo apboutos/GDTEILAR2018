@@ -102,7 +102,7 @@ public class ServerSimulationService extends IntentService {
             }
         }
         if(action.equals("order")){
-            broadcastOrderResponse(true,true);
+            broadcastOrderResponse(false,true);
         }
     }
 

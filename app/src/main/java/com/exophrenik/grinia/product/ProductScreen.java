@@ -41,8 +41,6 @@ public class ProductScreen extends AppCompatActivity {
     private Intent nextScreen;
     private Bundle productBundle;
 
-    // TODO The utility of this class is ready. I just need to polish the gui.
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -26,12 +26,11 @@
         <activity android:name=".scan.ScanScreen" />
         <activity android:name=".retrieval.RetrievalScreen" />
         <activity android:name=".product.ProductScreen" />
-        <activity android:name=".order.OrderScreen" />
         <activity
             android:name=".cart.CartScreen"
             android:label="@string/title_activity_cart_screen"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".profile.ProfileScreen" />
 
         <service
@@ -50,6 +49,10 @@
             android:name=".server.ServerSimulationService"
             android:exported="false" />
 
+        <activity
+            android:name=".order.OrderScreen"
+            android:label="@string/title_activity_order_screen"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
