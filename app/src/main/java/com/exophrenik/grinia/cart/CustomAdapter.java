@@ -120,28 +120,22 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
         public void onFocusChange(View v, boolean hasFocus) {
 
 
-            if (hasFocus){
-                if (productQuantity.getText().toString().equals("") || productQuantity.getText().toString() == null)
-                {
-                    cartList.get(position).setQuantity(0);
-                }else
-                {
-                    cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
-                }
-                updateCartListFile();
-                productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
+            if (productQuantity.getText().toString().equals("") || productQuantity.getText().toString() == null){
+                productQuantity.setText("0");
             }
-            if (!hasFocus){
-                if (productQuantity.getText().toString().equals("") || productQuantity.getText().toString() == null)
-                {
-                    cartList.get(position).setQuantity(0);
-                }else
-                {
+            if (cartList.size() > position){
+                if (hasFocus){
+
                     cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                    updateCartListFile();
+                    productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
                 }
-                cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
-                updateCartListFile();
-                productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
+                if (!hasFocus){
+
+                    cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                    updateCartListFile();
+                    productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
+                }
             }
         }
 
