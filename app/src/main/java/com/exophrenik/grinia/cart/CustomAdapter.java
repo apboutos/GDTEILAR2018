@@ -1,8 +1,6 @@
 package com.exophrenik.grinia.cart;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,15 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.exophrenik.grinia.R;
 import com.exophrenik.grinia.utilities.CartItem;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -126,11 +121,24 @@ public class CustomAdapter extends ArrayAdapter<CartItem> implements View.OnClic
 
 
             if (hasFocus){
-                cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                if (productQuantity.getText().toString().equals("") || productQuantity.getText().toString() == null)
+                {
+                    cartList.get(position).setQuantity(0);
+                }else
+                {
+                    cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                }
                 updateCartListFile();
                 productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));
             }
             if (!hasFocus){
+                if (productQuantity.getText().toString().equals("") || productQuantity.getText().toString() == null)
+                {
+                    cartList.get(position).setQuantity(0);
+                }else
+                {
+                    cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
+                }
                 cartList.get(position).setQuantity(Integer.valueOf(productQuantity.getText().toString()));
                 updateCartListFile();
                 productPrice.setText(Double.toString(currentItem.getPriceOfUnit()*currentItem.getQuantity()));

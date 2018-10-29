@@ -79,21 +79,21 @@ public class LoginIntentService extends IntentService {
         connection = (HttpURLConnection) new URL("http://www.masterpaint.gr/login.php" + "/?username=" + submittedUsername.toString() + "&password=" + submittedPassword).openConnection();//getResources().getString()).openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
-        connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
+            connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
         connection.setRequestProperty("Accept","application/json: charset=UTF-8");
         connection.setRequestMethod("GET");
         Log.d("RED","Request method " + connection.getRequestMethod());
     }
 
     /*
-    private void sendLoginInformationToServer() throws Exception{
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-        writer.write(loginInformation);
-        writer.flush();
-        Log.e("RED","LOG: " + loginInformation); // Prints the sent JSON object.
-        writer.close();
-        Log.d("RED","Response Message " + connection.getResponseMessage());
-    }*/
+        private void sendLoginInformationToServer() throws Exception{
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
+            writer.write(loginInformation);
+            writer.flush();
+            Log.e("RED","LOG: " + loginInformation); // Prints the sent JSON object.
+            writer.close();
+            Log.d("RED","Response Message " + connection.getResponseMessage());
+        }*/
 
     private void readAuthenticationResultFromServer() throws Exception{
 
