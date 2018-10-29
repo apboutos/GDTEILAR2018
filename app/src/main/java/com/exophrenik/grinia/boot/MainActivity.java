@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 nextScreen = new Intent(getApplicationContext(),LoginScreen.class);
                 nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
+                finish();
             }
         });
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 nextScreen = new Intent(getApplicationContext(),RegisterScreen.class);
                 nextScreen.putExtra("onlineMode",onlineMode);
                 startActivity(nextScreen);
+                finish();
             }
         });
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 nextScreen.putExtra("onlineMode",onlineMode);
                 nextScreen.putExtra("username","root");
                 startActivity(nextScreen);
+                finish();
             }
         });
 

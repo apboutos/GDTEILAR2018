@@ -37,6 +37,11 @@ public class LoginScreen extends AppCompatActivity {
     public class LoginResponseReceiver extends BroadcastReceiver {
 
         public static final String SERVER_LOGIN_RESPONSE = "server";
+        private LoginScreen parentActivity;
+
+        public LoginResponseReceiver(LoginScreen parentActivity){
+            this.parentActivity = parentActivity;
+        }
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -52,6 +57,7 @@ public class LoginScreen extends AppCompatActivity {
                 newScreen.putExtra("onlineMode",onlineMode);
                 newScreen.putExtra("username",usernameBox.getText().toString());
                 startActivity(newScreen);
+                parentActivity.finish();
             }
             else
             {
@@ -81,7 +87,7 @@ public class LoginScreen extends AppCompatActivity {
         filter = new IntentFilter();
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         filter.addAction(LoginResponseReceiver.SERVER_LOGIN_RESPONSE);
-        receiver = new LoginResponseReceiver();
+        receiver = new LoginResponseReceiver(this);
         registerReceiver(receiver,filter);
 
         /* Login Button functionality

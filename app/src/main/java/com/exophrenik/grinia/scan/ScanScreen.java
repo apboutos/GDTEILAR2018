@@ -140,6 +140,7 @@ public class ScanScreen extends AppCompatActivity {
             public void onClick(View view) {
                 nextScreen = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(nextScreen);
+                finish();
                 //TODO implement Token for Logout functionality.
             }
         });

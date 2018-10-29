@@ -76,10 +76,7 @@ public class ProfileScreen extends AppCompatActivity {
 
                 saveProfileToFile();
                 Toast.makeText(getApplicationContext(),"Profile saved",Toast.LENGTH_LONG);
-                Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
-                nextScreen.putExtra("username",username);
-                nextScreen.putExtra("onlineMode",onlineMode);
-                startActivity(nextScreen);
+                finish();
             }
         });
 
@@ -87,10 +84,7 @@ public class ProfileScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent nextScreen = new Intent(getApplicationContext(), ScanScreen.class);
-                nextScreen.putExtra("username",username);
-                nextScreen.putExtra("onlineMode",onlineMode);
-                startActivity(nextScreen);
+                finish();
 
             }
         });
